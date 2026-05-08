@@ -1,0 +1,442 @@
+{
+  "name": "Viral post automation",
+  "nodes": [
+    {
+      "parameters": {
+        "promptType": "define",
+        "text": "=create a viral post today",
+        "options": {
+          "systemMessage": "You are an expert viral video concept writer creating hyper-detailed \"found footage\" prompts for Indian content.\n\n## OUTPUT REQUIREMENTS\n- Length: 500 to 2000 characters (balance detail with brevity)\n- Must be production-ready and comprehensive\n\n## MANDATORY ELEMENTS\n\n**Indian Context:**\nSetting (village/temple/gully/ghat/jungle), objects (diya/prasad/marigold/sindoor), sounds (temple bells/traffic/crows), phone (old Redmi/Realme/Oppo)\n\n**Technical:**\nAspect ratio, camera flaws (grainy, shaky, poor focus), timestamps, imperfections\n\n**Dialogue (MANDATORY):**\nALWAYS: \"हिंदी\" (Hindi / English)\nExamples: \"भगवान!\" (Bhagwan! / God!), \"क्या है ये?\" (Kya hai ye? / What is this?), \"भाग यहाँ से!\" (Bhaag yahan se! / Run!)\n\n**Include:**\nHuman reactions, lighting, color palette, camera work (shake/zoom/focus), sound design, viral elements\n\n## WRITING STYLE\nFlowing paragraphs, vivid descriptions, specific timestamps, raw authentic feel\n\n## EXAMPLE (492 chars):\n\"Grainy 9:16 vertical, old Redmi phone. Crumbling village mandir at dusk, moss-covered Shiva lingam. Small glowing orb (cricket ball size) floating, pulsing orange-white. Camera violently shaking, struggles to focus. Three villagers visible - man in kurta gasps \"हे भगवान ये क्या है!\" (He Bhagwan ye kya hai! / Oh God what is this!), woman retreats screaming \"भूत है!\" (Bhoot hai! / It's a ghost!). At 11s orb shoots upward, camera jerks following it then drops - only marigolds remain on shrine. Temple bells ringing.\"\n\n⚠️ CRITICAL RULES:\n\n1. LENGTH: 500-2000 characters. Count carefully. NO EXCEPTIONS.\n\n2. INDIAN AESTHETICS: Only Indian settings, objects, reactions, behaviors.\n\n3. BILINGUAL DIALOGUE: ALL dialogue as \"हिंदी\" (Hindi / English). Never skip.\n\n4. ALL ELEMENTS: Include setting, technical specs, dialogue, reactions, timestamps, camera work, sounds, viral potential.\n\n5. NO META-COMMENTARY: Output only the prompt. No \"Here's your prompt:\" or explanations.\n\n6. VERIFY COUNT: Check you're between 500-2000 characters. Adjust if needed.\n\n7. PARAGRAPH FORMAT: Flowing prose, not bullets.\n\n8. TIMESTAMPS: Include specific moments (e.g., \"at 8s\", \"at 15s\").\n\nDO NOT deviate. Output only the video prompt, 500-2000 characters, following all rules.\n\nTransform user's concept into an Indian viral video prompt now.\n"
+        }
+      },
+      "type": "@n8n/n8n-nodes-langchain.agent",
+      "typeVersion": 3.1,
+      "position": [
+        64,
+        -64
+      ],
+      "id": "b6072d59-a4f7-43c7-8aef-28790bd9dcee",
+      "name": "AI Agent"
+    },
+    {
+      "parameters": {
+        "options": {}
+      },
+      "type": "@n8n/n8n-nodes-langchain.lmChatGoogleGemini",
+      "typeVersion": 1,
+      "position": [
+        144,
+        160
+      ],
+      "id": "0538b707-ea41-402e-8944-e2c086fa7e4b",
+      "name": "Google Gemini Chat Model",
+      "credentials": {
+        "googlePalmApi": {
+          "id": "WVphg5xMjQw4SThH",
+          "name": "Google Gemini(PaLM) Api account 3"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "modelId": {
+          "__rl": true,
+          "value": "models/gemini-2.5-flash",
+          "mode": "list",
+          "cachedResultName": "models/gemini-2.5-flash"
+        },
+        "messages": {
+          "values": [
+            {
+              "content": "=Based on this prompt {{ $json.output }}\nGive me a very short Youtube video title under 20 characters\nAnd after the title compulsory add #viralshort #shorts #Viral #short #indianviralshort\n\nIncluding all the hashtags given don't let the title exceed 99 characters"
+            }
+          ]
+        },
+        "builtInTools": {},
+        "options": {}
+      },
+      "type": "@n8n/n8n-nodes-langchain.googleGemini",
+      "typeVersion": 1.1,
+      "position": [
+        400,
+        -64
+      ],
+      "id": "53f888ba-8d4e-4aa2-9751-8f0cd8987835",
+      "name": "Message a model",
+      "credentials": {
+        "googlePalmApi": {
+          "id": "zHMfZjr0hRgOuROy",
+          "name": "Google Gemini(PaLM) Api account 4"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "method": "POST",
+        "url": "https://api.kie.ai/api/v1/jobs/createTask",
+        "sendHeaders": true,
+        "headerParameters": {
+          "parameters": [
+            {
+              "name": "Authorization",
+              "value": "Bearer 5b946323e5911979db95d09764565834"
+            }
+          ]
+        },
+        "sendBody": true,
+        "specifyBody": "json",
+        "jsonBody": "={\n  \"model\": \"grok-imagine/text-to-video\",\n  \"callBackUrl\": \"https://your-domain.com/api/callback\",\n  \"input\": {\n    \"prompt\": {{ JSON.stringify($(\"AI Agent\").item.json.output) }},\n    \"aspect_ratio\": \"9:16\",\n    \"mode\": \"normal\",\n    \"duration\": 10,\n    \"resolution\": \"720p\"\n  }\n}",
+        "options": {
+          "redirect": {
+            "redirect": {}
+          }
+        }
+      },
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.4,
+      "position": [
+        768,
+        -64
+      ],
+      "id": "fa4d1d0c-6ccf-4104-ba7a-985aebe069a3",
+      "name": "Create task"
+    },
+    {
+      "parameters": {
+        "amount": 310
+      },
+      "type": "n8n-nodes-base.wait",
+      "typeVersion": 1.1,
+      "position": [
+        992,
+        -64
+      ],
+      "id": "edea6e0f-4628-41ea-8b33-4b206cdc136c",
+      "name": "Wait",
+      "webhookId": "9cfad6d5-2603-4a65-b5a3-acb368955c61"
+    },
+    {
+      "parameters": {
+        "url": "https://api.kie.ai/api/v1/jobs/recordInfo",
+        "sendQuery": true,
+        "queryParameters": {
+          "parameters": [
+            {
+              "name": "taskId",
+              "value": "={{ $json.data.taskId }}"
+            }
+          ]
+        },
+        "sendHeaders": true,
+        "headerParameters": {
+          "parameters": [
+            {
+              "name": "Authorization",
+              "value": "Bearer 5b946323e5911979db95d09764565834"
+            }
+          ]
+        },
+        "options": {
+          "redirect": {
+            "redirect": {}
+          }
+        }
+      },
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.4,
+      "position": [
+        1216,
+        -64
+      ],
+      "id": "84e832ca-3916-46e9-b35c-2f93bfeeb9cf",
+      "name": "Get Video",
+      "retryOnFail": true,
+      "maxTries": 2,
+      "waitBetweenTries": 5000
+    },
+    {
+      "parameters": {
+        "resource": "video",
+        "operation": "upload",
+        "title": "={{ $('Message a model').item.json.content.parts[0].text }}",
+        "regionCode": "IN",
+        "categoryId": "27",
+        "options": {
+          "description": "={{ $('Message a model').item.json.content.parts[0].text }}"
+        }
+      },
+      "type": "n8n-nodes-base.youTube",
+      "typeVersion": 1,
+      "position": [
+        1664,
+        -64
+      ],
+      "id": "7c43dc54-604c-46a0-9824-5096daaa8606",
+      "name": "Upload to Youtube",
+      "credentials": {
+        "youTubeOAuth2Api": {
+          "id": "dWEDRd7AwhjsHKca",
+          "name": "YouTube account 2"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "url": "={{ JSON.parse($json.data.resultJson).resultUrls[0] }}",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.4,
+      "position": [
+        1440,
+        -64
+      ],
+      "id": "27e1de5e-97b8-4c1e-89c8-3d2b102dea6a",
+      "name": "download the video"
+    },
+    {
+      "parameters": {
+        "httpRequestMethod": "POST",
+        "graphApiVersion": "v23.0",
+        "node": "17841440161886723",
+        "edge": "media",
+        "options": {
+          "queryParameters": {
+            "parameter": [
+              {
+                "name": "video_url",
+                "value": "={{ JSON.parse($(\"Get Video\").item.json.data.resultJson).resultUrls[0] }}"
+              },
+              {
+                "name": "caption",
+                "value": "={{ $('Message a model').item.json.content.parts[0].text }}"
+              },
+              {
+                "name": "media_type",
+                "value": "REELS"
+              }
+            ]
+          }
+        }
+      },
+      "id": "43f5b617-9cea-4947-bcf8-5109e4f9bb3f",
+      "name": "Create Instagram Reel Container",
+      "type": "n8n-nodes-base.facebookGraphApi",
+      "typeVersion": 1,
+      "position": [
+        1888,
+        -64
+      ],
+      "credentials": {
+        "facebookGraphApi": {
+          "id": "hX6zvARmDJIqQ20k",
+          "name": "Facebook Graph account 11"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "httpRequestMethod": "POST",
+        "graphApiVersion": "v23.0",
+        "node": "17841440161886723",
+        "edge": "media_publish",
+        "options": {
+          "queryParameters": {
+            "parameter": [
+              {
+                "name": "creation_id",
+                "value": "={{ $('Create Instagram Reel Container').item.json.id }}"
+              }
+            ]
+          }
+        }
+      },
+      "id": "96e0e227-b123-4dcc-a739-29f90bb2ab9b",
+      "name": "Publish Instagram Reel",
+      "type": "n8n-nodes-base.facebookGraphApi",
+      "typeVersion": 1,
+      "position": [
+        2336,
+        -64
+      ],
+      "credentials": {
+        "facebookGraphApi": {
+          "id": "PWbbnrnjGWa82eCw",
+          "name": "Facebook Graph account 12"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "amount": 60
+      },
+      "id": "f4213947-e28b-478d-a919-7180ca38f015",
+      "name": "Wait for Reel Processing",
+      "type": "n8n-nodes-base.wait",
+      "typeVersion": 1.1,
+      "position": [
+        2112,
+        -64
+      ],
+      "webhookId": "6e6f31d8-c09f-477e-9980-c6319f23bd75"
+    },
+    {
+      "parameters": {
+        "rule": {
+          "interval": [
+            {
+              "triggerAtHour": 10
+            }
+          ]
+        }
+      },
+      "type": "n8n-nodes-base.scheduleTrigger",
+      "typeVersion": 1.3,
+      "position": [
+        -160,
+        -64
+      ],
+      "id": "0d598e0e-d8e2-4d66-a47e-c5ef252388dc",
+      "name": "Schedule Trigger"
+    }
+  ],
+  "pinData": {},
+  "connections": {
+    "Google Gemini Chat Model": {
+      "ai_languageModel": [
+        [
+          {
+            "node": "AI Agent",
+            "type": "ai_languageModel",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "AI Agent": {
+      "main": [
+        [
+          {
+            "node": "Message a model",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Message a model": {
+      "main": [
+        [
+          {
+            "node": "Create task",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Create task": {
+      "main": [
+        [
+          {
+            "node": "Wait",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Wait": {
+      "main": [
+        [
+          {
+            "node": "Get Video",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Get Video": {
+      "main": [
+        [
+          {
+            "node": "download the video",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Upload to Youtube": {
+      "main": [
+        [
+          {
+            "node": "Create Instagram Reel Container",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "download the video": {
+      "main": [
+        [
+          {
+            "node": "Upload to Youtube",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Create Instagram Reel Container": {
+      "main": [
+        [
+          {
+            "node": "Wait for Reel Processing",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Wait for Reel Processing": {
+      "main": [
+        [
+          {
+            "node": "Publish Instagram Reel",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Schedule Trigger": {
+      "main": [
+        [
+          {
+            "node": "AI Agent",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "active": true,
+  "settings": {
+    "executionOrder": "v1",
+    "binaryMode": "separate",
+    "timeSavedMode": "fixed",
+    "callerPolicy": "workflowsFromSameOwner",
+    "availableInMCP": false
+  },
+  "versionId": "229e2f99-64de-47ec-9065-5a60c1519f7d",
+  "meta": {
+    "templateCredsSetupCompleted": true,
+    "instanceId": "501c5d456387b733376a28e7b6e0f5ae1782d787f7c8996306becd9239ec4fe3"
+  },
+  "id": "qqUULvIBwQRgUK3R",
+  "tags": []
+}
