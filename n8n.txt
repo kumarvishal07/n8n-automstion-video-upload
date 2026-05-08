@@ -1,0 +1,147 @@
+# Viral Video Auto Poster
+
+## System Prompt
+
+```jsx
+You are an expert viral video concept writer creating hyper-detailed "found footage" prompts for Indian content.
+
+## OUTPUT REQUIREMENTS
+- Length: 500 to 2000 characters (balance detail with brevity)
+- Must be production-ready and comprehensive
+
+## MANDATORY ELEMENTS
+
+**Indian Context:**
+Setting (village/temple/gully/ghat/jungle), objects (diya/prasad/marigold/sindoor), sounds (temple bells/traffic/crows), phone (old Redmi/Realme/Oppo)
+
+**Technical:**
+Aspect ratio, camera flaws (grainy, shaky, poor focus), timestamps, imperfections
+
+**Dialogue (MANDATORY):**
+ALWAYS: "हिंदी" (Hindi / English)
+Examples: "भगवान!" (Bhagwan! / God!), "क्या है ये?" (Kya hai ye? / What is this?), "भाग यहाँ से!" (Bhaag yahan se! / Run!)
+
+**Include:**
+Human reactions, lighting, color palette, camera work (shake/zoom/focus), sound design, viral elements
+
+## WRITING STYLE
+Flowing paragraphs, vivid descriptions, specific timestamps, raw authentic feel
+
+## EXAMPLE (492 chars):
+"Grainy 9:16 vertical, old Redmi phone. Crumbling village mandir at dusk, moss-covered Shiva lingam. Small glowing orb (cricket ball size) floating, pulsing orange-white. Camera violently shaking, struggles to focus. Three villagers visible - man in kurta gasps "हे भगवान ये क्या है!" (He Bhagwan ye kya hai! / Oh God what is this!), woman retreats screaming "भूत है!" (Bhoot hai! / It's a ghost!). At 11s orb shoots upward, camera jerks following it then drops - only marigolds remain on shrine. Temple bells ringing."
+
+⚠️ CRITICAL RULES:
+
+1. LENGTH: 500-2000 characters. Count carefully. NO EXCEPTIONS.
+
+2. INDIAN AESTHETICS: Only Indian settings, objects, reactions, behaviors.
+
+3. BILINGUAL DIALOGUE: ALL dialogue as "हिंदी" (Hindi / English). Never skip.
+
+4. ALL ELEMENTS: Include setting, technical specs, dialogue, reactions, timestamps, camera work, sounds, viral potential.
+
+5. NO META-COMMENTARY: Output only the prompt. No "Here's your prompt:" or explanations.
+
+6. VERIFY COUNT: Check you're between 500-2000 characters. Adjust if needed.
+
+7. PARAGRAPH FORMAT: Flowing prose, not bullets.
+
+8. TIMESTAMPS: Include specific moments (e.g., "at 8s", "at 15s").
+
+DO NOT deviate. Output only the video prompt, 500-2000 characters, following all rules.
+
+Transform user's concept into an Indian viral video prompt now.
+
+```
+
+## Prompt for Title
+
+```jsx
+Based on this prompt {{ $json.output }}
+Give me a very short Youtube video title under 20 characters
+And after the title compulsory add #viralshort #shorts #Viral #short #indianviralshort
+
+Including all the hashtags given don't let the title exceed 100 characters
+```
+
+## REPLACE IF YOU GET JSON ERROR
+
+```jsx
+{{ $('AI Agent').item.json.output.replace(/\"/g, '\\\"').replace(/\n/g, '\\n') }} }}
+```
+
+
+
+https://www.youtube.com/channel/UC7NmV-rDAcPatJ0jutNXSFg
+
+blotato api-key:  blt_FJPhF55trdLREex19EzGfyA1HpETVwjftbdYugOETE0=
+
+kie: 9e51ad1b6e19aec09ec2b361ab961ecf
+
+
+{{ $('Create task').item.json.data.taskId }}
+
+
+youtube credential: Viral Ghost: go to https://console.cloud.google.com/ -> API & Services -> Aauth consent screen -> client :: 	
+
+https://console.cloud.google.com/auth/clients/304910731460-bvgsnf5gtf90tsuvptc9b6gc445dl381.apps.googleusercontent.com?authuser=1&project=viral-video-491208	
+
+oauthclient id: 304910731460-brkgvrvja3ueneuk6g2986b9terts24p.apps.googleusercontent.com
+
+secret: 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  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
+
+instagream access token:
+
+EAAOVswi9kKABRE7y9x6mI7Df5IskSawOooam3cScgX5ZCSZAWkqEdpolue3kIbjwiG6K1ASxWBnlyn9kBVv9X2gSheZBY9mtZBHhPLPNKb437uGLNVFFRC2HZCMYPdhTXHAoIycZBIOS9ndaYdzleiIuWe79dEVA0eAfIepZBrQPqX31gkI9iPxkoMRXmXUm3FZAwwX01pH7qH3NLhhLJEcykJKbJZBbmAOZAv
+
+
+
+{"resultUrls":["https://tempfile.aiquickdraw.com/soraWaterRemover/8b21f49cec5d142db264b8e099df6620.mp4"]}
+
+https://tempfile.aiquickdraw.com/soraWaterRemover/7e51efaabc5e1ba4023b348dd458772c.mp4
+
+telegram: api token:  HTTP API:  8734646745:AAGh5GvaNI51HVT3SonTa1sOy8GDVEChXK8
+
+
+n8n: to automate the api, create an ai agent
+gemini: to create promt/ content
+https://kie.ai/:  to generate video from text
+http requet : to create/get/download video
+you tube: to upload the video
+
+
+{{ $('Create task').item.json.data.taskId }}
+
+
+{{ $('Get Video').item.json.data.resultJson.extractUrl().split('"]')[0] }}
+
+taskID to execute: 873193abea9fc6f05b88324e1bd78fca
+
+
+https://accountscenter.instagram.com/profiles/17841440161886723/
+
+
+insta id: 17841440161886723
+
+
+n8n instagram:
+
+login to ur fb and create a page. link that page to instagram account. 
+go to business.facebook.c0m -> page -> create app and follow the instruction. 
+
+https://www.youtube.com/watch?v=m02TeQ9kHVo
+
+https://developers.facebook.com/
+
+https://www.google.com/search?q=how+to+upload+reel+on+instagram+with+n8n&rlz=1C1YTUH_enIN1044IN1044&oq=how+to+upload+reel+on+instagram+with+n8n&gs_lcrp=EgZjaHJvbWUyBggAEEUYOTIJCAEQIRgKGKABMgkIAhAhGAoYoAEyCQgDECEYChigATIHCAQQIRiPAtIBCTEwMDYxajBqOagCBrACAfEFQKSfn9cjwe4&sourceid=chrome&ie=UTF-8#fpstate=ive&vld=cid:1a37c5e6,vid:m02TeQ9kHVo,st:0
+
+trading tewlvedata api -key : 4dae638bc2194912bd6aedce6ea77731
+
+mediatsakc key:  b3686436d0f94c9856ac46af19b96fbd
+
+for google gemini api key:
+  Go to https://aistudio.google.com/app/u/1/api-keys?project=gen-lang-client-0493461953&pli=1 and generate a api key which you can paste it to google gemini credential
+  
+for you Tube api key:
+  
+  
